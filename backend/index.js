@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import asciiRoutes from "./routes/asciiRountes.js";
+import asciiRoutes from "./routes/asciiRoutes.js";
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 //routes
-app.use("/api/items", asciiRoutes);
+app.use("/api/ascii", asciiRoutes);
 
 //connect to db
 mongoose
