@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Ascii from "../models/asciiModel.js";
 
 export const getAscii = async (req, res) => {
