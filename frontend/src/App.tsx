@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { ModeToggle } from "./components/darkmode/mode-toggle";
+import HomePage from "./pages/HomePage";
+import CreatePage from "./pages/CreatePage";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
 	return (
 		<>
-			<ModeToggle />
+			<Navbar />
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="/create" element={<CreatePage />} />
+			</Routes>
 		</>
 	);
 }
