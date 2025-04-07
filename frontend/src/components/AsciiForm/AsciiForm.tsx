@@ -6,19 +6,15 @@ import { useAscii } from "../../contexts/AsciiContext";
 import { toast } from "sonner";
 
 export default function AsciiForm() {
-	const { createAscii, loading, error } = useAscii();
+	const { createAscii, loading } = useAscii();
 	const [formData, setFormData] = useState({
 		name: "",
 		price: "",
 		image: "",
 	});
 
-	const [success, setSuccess] = useState(false);
-
 	const handleCreateAscii = async (e: { preventDefault: () => void }) => {
 		e.preventDefault();
-
-		setSuccess(false);
 
 		//simple validation
 		if (!formData.name || !formData.price || !formData.image) {
@@ -33,7 +29,6 @@ export default function AsciiForm() {
 		});
 
 		if (result) {
-			setSuccess(true);
 			//reset form
 			setFormData({
 				name: "",
@@ -47,12 +42,6 @@ export default function AsciiForm() {
 	return (
 		<div className="w-full max-w-sm">
 			<h2 className="text-xl font-bold mb-4">Create New ASCII Art</h2>
-
-			{success && (
-				<div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-					ASCII art created successfully!
-				</div>
-			)}
 
 			<form onSubmit={handleCreateAscii} className="grid gap-4">
 				<div className="grid gap-2">

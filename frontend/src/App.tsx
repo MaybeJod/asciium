@@ -8,7 +8,7 @@ import { Toaster } from "sonner";
 function App() {
 	return (
 		<>
-			<Toaster />
+			<Toaster richColors />
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<HomePage />} />
