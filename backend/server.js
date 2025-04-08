@@ -2,6 +2,11 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
+import { fileURLToPath } from "url";
+
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 import { connectDB } from "./config/db.js";
 import asciiRoutes from "./routes/asciiRoute.js";
@@ -11,12 +16,13 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-const __dirname = path.resolve();
-
 //middleware
 app.use(
 	cors({
-		origin: "http://localhost:5173",
+		origin:
+			process.env.NODE_ENV === "production"
+				? process.env.PRODUCTION_URL
+				: "http://localhost:5173",
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
@@ -28,10 +34,10 @@ app.use(express.json());
 app.use("/api/ascii", asciiRoutes);
 
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+	app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+		res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
 	});
 }
 
