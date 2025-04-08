@@ -12,7 +12,7 @@ import {
 	deleteAsciiService,
 } from "../services/asciiService";
 
-interface AsciiItem {
+export interface AsciiItem {
 	_id: string;
 	name: string;
 	price: number | string;

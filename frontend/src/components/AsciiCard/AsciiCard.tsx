@@ -21,8 +21,9 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { AsciiItem } from "@/contexts/AsciiContext";
 
-export default function AsciiCard({ ascii }) {
+export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
 	const { deleteAscii, updateAscii } = useAscii();
 	const [updatedAscii, setUpdatedAscii] = useState({
 		name: ascii.name,
