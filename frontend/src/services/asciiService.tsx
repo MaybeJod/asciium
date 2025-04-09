@@ -42,7 +42,7 @@ interface AsciiItem {
 //get all ascii items
 export const getAsciiService = async (): Promise<ApiResponse<AsciiItem[]>> => {
 	try {
-		const response = await api.get("/ascii");
+		const response = await api.get("/api/ascii");
 		return response.data;
 	} catch (error) {
 		if (axios.isAxiosError(error) && error.response) {
