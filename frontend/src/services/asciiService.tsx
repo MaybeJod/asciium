@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const API_URL = "http://localhost:4000/api";
-const API_URL = "/api";
+const API_URL = "https://asciium.vercel.app/api";
 
 //create an axios instance
 const api = axios.create({
