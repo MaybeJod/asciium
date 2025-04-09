@@ -22,7 +22,7 @@ app.use(
 		origin:
 			process.env.NODE_ENV === "production"
 				? process.env.PRODUCTION_URL
-				: "http://localhost:5173",
+				: "http://localhost:5174",
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
