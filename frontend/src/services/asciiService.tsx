@@ -1,22 +1,24 @@
 import axios from "axios";
 
-console.log("All environment variables:", import.meta.env);
-console.log("VITE_NODE_ENV:", import.meta.env.VITE_NODE_ENV);
+// console.log("All environment variables:", import.meta.env);
+// // console.log("VITE_NODE_ENV:", import.meta.env.VITE_NODE_ENV);
+// console.log("NODE_ENV:", import.meta.env.VITE_NODE_ENV.MODE);
 
-const NODE_ENV = import.meta.env.VITE_NODE_ENV;
-let API_URL = "";
+// // const NODE_ENV = import.meta.env.VITE_NODE_ENV;
+// const NODE_ENV = import.meta.env.NODE_ENV;
+// let API_URL = "";
 
-console.log(NODE_ENV);
+// console.log(NODE_ENV);
 
-if (NODE_ENV === "development") {
-	API_URL = "http://localhost:4000/api";
-	console.log("dev mode:" + API_URL);
-} else if (NODE_ENV === "production") {
-	API_URL = "https://asciium.vercel.app/api";
-	console.log("prod mode:" + API_URL);
-}
+// if (NODE_ENV === "development") {
+// 	API_URL = "http://localhost:4000/api";
+// 	console.log("dev mode:" + API_URL);
+// } else if (NODE_ENV === "production") {
+// 	API_URL = "https://asciium.vercel.app/api";
+// 	console.log("prod mode:" + API_URL);
+// }
 // const API_URL = "http://localhost:4000/api";
-// const API_URL = "https://asciium.vercel.app/api";
+const API_URL = "https://asciium.vercel.app/api";
 
 //create an axios instance
 const api = axios.create({
@@ -42,7 +44,7 @@ interface AsciiItem {
 //get all ascii items
 export const getAsciiService = async (): Promise<ApiResponse<AsciiItem[]>> => {
 	try {
-		const response = await api.get("/api/ascii");
+		const response = await api.get("/ascii");
 		return response.data;
 	} catch (error) {
 		if (axios.isAxiosError(error) && error.response) {
