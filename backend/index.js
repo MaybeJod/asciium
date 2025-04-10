@@ -22,7 +22,7 @@ app.use(
 		origin:
 			process.env.NODE_ENV === "production"
 				? process.env.PRODUCTION_URL
-				: "http://localhost:5173",
+				: "http://localhost:5174",
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
@@ -33,6 +33,7 @@ app.use(express.json());
 
 app.use("/api/ascii", asciiRoutes);
 
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
