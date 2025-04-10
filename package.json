@@ -4,9 +4,9 @@
 	"description": "Ascii deez",
 	"main": "index.js",
 	"scripts": {
-		"dev": "NODE_ENV=development nodemon backend/server.js",
+		"dev": "NODE_ENV=development nodemon backend/index.js",
 		"build": "npm install && npm i --prefix frontend && npm run build --prefix frontend",
-		"start": "NODE_ENV=production node backend/server.js"
+		"start": "NODE_ENV=production node backend/index.js"
 	},
 	"repository": {
 		"type": "git",
