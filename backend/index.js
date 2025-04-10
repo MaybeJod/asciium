@@ -35,18 +35,9 @@ app.use("/api/ascii", asciiRoutes);
 
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
-	// Only use this for traditional deployments, not for Vercel
-	app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-	app.get("*", function (_, res) {
-		res.sendFile(
-			path.join(__dirname, "../frontend/dist/index.html"),
-			function (err) {
-				if (err) {
-					res.status(500).send(err);
-				}
-			}
-		);
+	app.use(express.static(path.join(__dirname, "../frontend", "dist")));
+	app.get("/*", (req, res) => {
+		res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
 	});
 }
 
