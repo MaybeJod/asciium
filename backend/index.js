@@ -5,8 +5,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 // Fix for __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+const __dirname = path.resolve();
 
 import { connectDB } from "./config/db.js";
 import asciiRoutes from "./routes/asciiRoute.js";
@@ -35,9 +37,9 @@ app.use("/api/ascii", asciiRoutes);
 
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "../frontend", "dist")));
+	app.use(express.static(path.join(__dirname, "/frontend", "dist")));
 	app.get("/*", (req, res) => {
-		res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+		res.sendFile(path.join(__dirname, "/frontend", "dist", "index.html"));
 	});
 }
 
