@@ -34,7 +34,7 @@ app.use(express.json());
 app.use("/api/ascii", asciiRoutes);
 
 console.log(process.env.NODE_ENV);
-if (process.env.NODE_ENV === "production" && !process.env.VERCEL) {
+if (process.env.NODE_ENV === "production") {
 	// Only use this for traditional deployments, not for Vercel
 	app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
