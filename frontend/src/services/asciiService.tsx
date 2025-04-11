@@ -17,8 +17,8 @@ import axios from "axios";
 // 	API_URL = "https://asciium.vercel.app/api";
 // 	console.log("prod mode:" + API_URL);
 // }
-const API_URL = "http://localhost:4000/api";
-// const API_URL = "https://asciium.vercel.app/api";
+// const API_URL = "http://localhost:4000/api";
+const API_URL = "https://asciium.vercel.app/api";
 
 //create an axios instance
 const api = axios.create({
