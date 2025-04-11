@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 4000;
-const __dirname = path.resolve();
+const dirname = path.resolve();
 
 //middleware
 //allows us to accept json data in the req.body
