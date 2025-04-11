@@ -16,14 +16,7 @@ const __dirname = path.resolve();
 //allows us to accept json data in the req.body
 app.use(express.json());
 
-app.use(
-	cors({
-		origin:
-			process.env.NODE_ENV === "production"
-				? "https://asciium.vercel.app/"
-				: "http://localhost:5173",
-	})
-);
+app.use(cors());
 
 app.use("/api/ascii", asciiRoutes);
 
