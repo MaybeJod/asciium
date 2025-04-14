@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 4000;
-const dirname = path.resolve();
+const __dirname = path.resolve();
 
 //middleware
 //allows us to accept json data in the req.body
@@ -23,9 +23,9 @@ app.use("/api/ascii", asciiRoutes);
 //serve static files
 // console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(dirname, "/frontend/dist")));
+	app.use(express.static(path.join(__dirname, "/frontend/dist")));
 	app.get("*", (req, res) => {
-		res.sendFile(path.join(dirname, "frontend", "dist", "index.html"));
+		res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 	});
 }
 
