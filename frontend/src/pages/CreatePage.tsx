@@ -5,7 +5,9 @@ export default function CreatePage() {
 	return (
 		<>
 			<AsciiProvider>
-				<AsciiForm />
+				<section className="flex justify-center">
+					<AsciiForm />
+				</section>
 			</AsciiProvider>
 		</>
 	);
