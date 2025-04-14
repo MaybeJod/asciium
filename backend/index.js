@@ -15,11 +15,12 @@ const __dirname = path.resolve();
 //middleware
 //allows us to accept json data in the req.body
 app.use(express.json());
-
 app.use(cors());
 
+//routes
 app.use("/api/ascii", asciiRoutes);
 
+//serve static files
 // console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));
@@ -28,7 +29,22 @@ if (process.env.NODE_ENV === "production") {
 	});
 }
 
-app.listen(port, () => {
-	connectDB();
-	console.log(`server started at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+// 	connectDB();
+// 	console.log(`server started at http://localhost:${port}`);
+// });
+
+//connect to database if not serverless
+if (!process.env.VERCEL) {
+	const port = process.env.PORT || 4000;
+	app.listen(port, () => {
+		connectDB();
+		console.log(`server started at http://localhost:${port}`);
+	});
+}
+
+//connect to database in serverless environment
+connectDB();
+
+//export for serverless
+export default app;
