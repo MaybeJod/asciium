@@ -1,24 +1,16 @@
 import axios from "axios";
 
-// console.log("All environment variables:", import.meta.env);
-// // console.log("VITE_NODE_ENV:", import.meta.env.VITE_NODE_ENV);
-// console.log("NODE_ENV:", import.meta.env.VITE_NODE_ENV.MODE);
+let API_URL: string;
 
-// // const NODE_ENV = import.meta.env.VITE_NODE_ENV;
-// const NODE_ENV = import.meta.env.NODE_ENV;
-// let API_URL = "";
-
-// console.log(NODE_ENV);
-
-// if (NODE_ENV === "development") {
-// 	API_URL = "http://localhost:4000/api";
-// 	console.log("dev mode:" + API_URL);
-// } else if (NODE_ENV === "production") {
-// 	API_URL = "https://asciium.vercel.app/api";
-// 	console.log("prod mode:" + API_URL);
-// }
+if (import.meta.env.MODE === "development") {
+	API_URL = "http://localhost:4000/api";
+	console.log("Using development API:", API_URL);
+} else {
+	API_URL = "https://asciium.vercel.app/api";
+	console.log("Using production API:", API_URL);
+}
 // const API_URL = "http://localhost:4000/api";
-const API_URL = "https://asciium.vercel.app/api";
+// const API_URL = "https://asciium.vercel.app/api";
 
 //create an axios instance
 const api = axios.create({
