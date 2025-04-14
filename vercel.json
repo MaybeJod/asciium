@@ -2,12 +2,15 @@
 	"version": 2,
 	"builds": [
 		{ "src": "backend/index.js", "use": "@vercel/node" },
-		{ "src": "frontend/dist/**/*", "use": "@vercel/static" }
+		{ "src": "frontend/dist/**", "use": "@vercel/static" }
 	],
 	"routes": [
-		{ "src": "/api/(.*)", "dest": "backend/index.js" },
-		{ "src": "/(.*)", "dest": "frontend/dist/$1" },
-		{ "handle": "filesystem" },
-		{ "src": "/[^.]+", "dest": "frontend/dist/index.html" }
+		{ "src": "/api/(.*)", "dest": "/backend/index.js" },
+		{ "src": "/(assets|images|js|css)/(.*)", "dest": "/frontend/dist/$1/$2" },
+		{
+			"src": "/(.*\\.(js|css|png|jpg|jpeg|svg|ico))",
+			"dest": "/frontend/dist/$1"
+		},
+		{ "src": "/(.*)", "dest": "/frontend/dist/index.html" }
 	]
 }
