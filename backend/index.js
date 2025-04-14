@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 4000;
-const __dirname = path.resolve();
+const dirname = path.resolve();
 
 //middleware
 //allows us to accept json data in the req.body
@@ -23,28 +23,13 @@ app.use("/api/ascii", asciiRoutes);
 //serve static files
 // console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+	app.use(express.static(path.join(dirname, "/frontend/dist")));
 	app.get("*", (req, res) => {
 		res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 	});
 }
 
-// app.listen(port, () => {
-// 	connectDB();
-// 	console.log(`server started at http://localhost:${port}`);
-// });
-
-//connect to database if not serverless
-if (!process.env.VERCEL) {
-	const port = process.env.PORT || 4000;
-	app.listen(port, () => {
-		connectDB();
-		console.log(`server started at http://localhost:${port}`);
-	});
-}
-
-//connect to database in serverless environment
-connectDB();
-
-//export for serverless
-export default app;
+app.listen(port, () => {
+	connectDB();
+	console.log(`server started at http://localhost:${port}`);
+});
