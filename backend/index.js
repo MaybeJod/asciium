@@ -29,22 +29,7 @@ if (process.env.NODE_ENV === "production") {
 	});
 }
 
-// app.listen(port, () => {
-// 	connectDB();
-// 	console.log(`server started at http://localhost:${port}`);
-// });
-
-//connect to database if not serverless
-if (!process.env.VERCEL) {
-	const port = process.env.PORT || 4000;
-	app.listen(port, () => {
-		connectDB();
-		console.log(`server started at http://localhost:${port}`);
-	});
-}
-
-//connect to database in serverless environment
-connectDB();
-
-//export for serverless
-export default app;
+app.listen(port, () => {
+	connectDB();
+	console.log(`server started at http://localhost:${port}`);
+});
