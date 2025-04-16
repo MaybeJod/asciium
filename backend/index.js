@@ -15,7 +15,13 @@ const __dirname = path.resolve();
 //middleware
 //allows us to accept json data in the req.body
 app.use(express.json());
-app.use(cors());
+app.use(
+	cors({
+		origin: "*",
+		methods: ["GET", "POST", "PUT", "DELETE"],
+		credentials: true,
+	})
+);
 
 //routes
 app.use("/api/ascii", asciiRoutes);
