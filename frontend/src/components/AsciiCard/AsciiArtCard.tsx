@@ -17,12 +17,17 @@ import {
 	DialogTrigger,
 	DialogTitle,
 } from "../ui/dialog";
+import { useAscii } from "@/contexts/AsciiArtContext";
 
 export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
+	const { deleteAscii, fetchAsciis } = useAscii();
+
 	const handleEdit = () => {
 		console.log("edit");
 	};
 	const handleDelete = () => {
+		deleteAscii(ascii._id);
+		fetchAsciis();
 		console.log("delete");
 	};
 
@@ -32,10 +37,12 @@ export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
 				<CardTitle>{ascii.title}</CardTitle>
 				<CardDescription>ID: {ascii._id}</CardDescription>
 			</CardHeader>
-			<CardContent className="flex flex-col items-center overflow-hidden">
+			<CardContent className="flex flex-col items-center overflow-hidden max-w-100">
 				{" "}
 				{/* Initially hide overflow */}
-				<div className="ascii-art">{ascii.content}</div>
+				<div className=" ascii-art text-yellow-500 text-[0.5rem]">
+					{ascii.content}
+				</div>
 				<Dialog>
 					<DialogTrigger asChild>
 						<Button variant="outline">View Full</Button>
