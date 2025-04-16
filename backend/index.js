@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 import path from "path";
 
 import { connectDB } from "./config/db.js";
-import asciiRoutes from "./routes/asciiRoute.js";
+// import asciiRoutes from "./routes/asciiRoute.js";
+import asciiArtRoutes from "./routes/AsciiArtRoute.js";
 
 dotenv.config();
 
@@ -24,7 +25,8 @@ app.use(
 );
 
 //routes
-app.use("/api/ascii", asciiRoutes);
+// app.use("/api/ascii", asciiRoutes);
+app.use("/api/ascii", asciiArtRoutes);
 
 //serve static files
 // console.log(process.env.NODE_ENV);
