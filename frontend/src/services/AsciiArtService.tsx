@@ -9,8 +9,6 @@ if (import.meta.env.MODE === "development") {
 	API_URL = "https://asciium.vercel.app/api";
 	console.log("Using production API:", API_URL);
 }
-// const API_URL = "http://localhost:4000/api";
-// const API_URL = "https://asciium.vercel.app/api";
 
 //create an axios instance
 const api = axios.create({
@@ -32,19 +30,25 @@ export interface AsciiItem {
 	content: string;
 }
 
+const handleRequestError = <T,>(error: any): ApiResponse<T> => {
+	if (axios.isAxiosError(error) && error.response) {
+		console.error("API error response:", error.response.data);
+		return error.response.data as ApiResponse<T>;
+	}
+	console.error("API network error:", error);
+	return {
+		success: false,
+		message: "Network error or server not responding",
+	};
+};
+
 //get all ascii items
 export const getAsciiService = async (): Promise<ApiResponse<AsciiItem[]>> => {
 	try {
 		const response = await api.get("/ascii");
 		return response.data;
-	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			return error.response.data as ApiResponse<AsciiItem[]>;
-		}
-		return {
-			success: false,
-			message: "Network error or server not responding",
-		};
+	} catch (error: any) {
+		return handleRequestError<AsciiItem[]>(error);
 	}
 };
 
@@ -55,14 +59,8 @@ export const createAsciiService = async (
 	try {
 		const response = await api.post("/ascii", ascii);
 		return response.data;
-	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			return error.response.data as ApiResponse<AsciiItem>;
-		}
-		return {
-			success: false,
-			message: "Network error or server not responding",
-		};
+	} catch (error: any) {
+		return handleRequestError<AsciiItem>(error);
 	}
 };
 
@@ -74,14 +72,8 @@ export const updateAsciiService = async (
 	try {
 		const response = await api.put(`/ascii/${id}`, ascii);
 		return response.data;
-	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			return error.response.data as ApiResponse<AsciiItem>;
-		}
-		return {
-			success: false,
-			message: "Network error or server not responding",
-		};
+	} catch (error: any) {
+		return handleRequestError<AsciiItem>(error);
 	}
 };
 
@@ -92,13 +84,7 @@ export const deleteAsciiService = async (
 	try {
 		const response = await api.delete(`/ascii/${id}`);
 		return response.data;
-	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			return error.response.data as ApiResponse<null>;
-		}
-		return {
-			success: false,
-			message: "Network error or server not responding",
-		};
+	} catch (error: any) {
+		return handleRequestError<null>(error);
 	}
 };
