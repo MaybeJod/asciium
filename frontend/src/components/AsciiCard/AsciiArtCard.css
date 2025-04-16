@@ -1,0 +1,7 @@
+/* AsciiCard.module.css */
+.ascii-art {
+	font-family: monospace, monospace;
+	white-space: pre-wrap;
+	line-height: 0.9;
+	font-size: 0.8em; /* Adjust this value as needed */
+}
