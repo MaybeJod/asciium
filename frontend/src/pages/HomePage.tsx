@@ -1,57 +1,29 @@
-import { Link } from "react-router-dom";
-import { useAscii } from "@/contexts/AsciiContext";
-import { useEffect } from "react";
-// import AsciiCard from "@/components/AsciiCard/AsciiCard";
+import { useAscii } from "@/contexts/AsciiArtContext";
 import AsciiCard from "@/components/AsciiCard/AsciiArtCard";
 
-export default function HomePage() {
-	const { fetchAsciis, asciis, loading, error } = useAscii();
+const HomePage = () => {
+	const { asciis, loading, error } = useAscii();
 
-	useEffect(() => {
-		fetchAsciis();
-	}, []);
+	if (loading) {
+		return <div>Loading ASCII art...</div>;
+	}
+
+	if (error) {
+		return <div>Error loading ASCII art: {error}</div>;
+	}
 
 	return (
-		// <main className="m-19">
-		// 	<h2>Current Ascii</h2>
-
-		// 	{loading && <p>Loading...</p>}
-
-		// 	{error && <p>Error: {error}</p>}
-
-		// 	{!loading && asciis.length > 0 ? (
-		// 		<section className="grid grid-cols-3 gap-3 ">
-		// 			{asciis.map((ascii) => (
-		// 				<AsciiCard key={ascii._id} ascii={ascii} />
-		// 			))}
-		// 		</section>
-		// 	) : (
-		// 		<div>
-		// 			{!loading && <p>No Ascii found :(</p>}
-		// 			<Link to="/create">Create new Ascii</Link>
-		// 		</div>
-		// 	)}
-		// </main>
-
-		<main className="m-19">
-			<h2>Current Ascii</h2>
-
-			{loading && <p>Loading...</p>}
-
-			{error && <p>Error: {error}</p>}
-
-			{!loading && asciis.length > 0 ? (
-				<section className="grid grid-cols-3 gap-3 ">
-					{asciis.map((ascii) => (
-						<AsciiCard key={ascii._id} ascii={ascii} />
-					))}
-				</section>
-			) : (
-				<div>
-					{!loading && <p>No Ascii found :(</p>}
-					<Link to="/create">Create new Ascii</Link>
-				</div>
-			)}
-		</main>
+		<div>
+			<h1>ASCII Art Gallery</h1>
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+				{asciis.map((ascii) => (
+					<div key={ascii._id}>
+						<AsciiCard ascii={ascii} />
+					</div>
+				))}
+			</div>
+		</div>
 	);
-}
+};
+
+export default HomePage;
