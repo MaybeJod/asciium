@@ -1,4 +1,5 @@
-import { AsciiItem } from "@/services/AsciiArtService";
+import { useAscii } from "@/contexts/AsciiArtContext";
+import { Button } from "../ui/button";
 import {
 	Card,
 	CardContent,
@@ -7,61 +8,140 @@ import {
 	CardTitle,
 	CardFooter,
 } from "../ui/card";
-import { Button } from "../ui/button";
-import "./AsciiArtCard.css";
+import { toast } from "sonner";
 import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
 	DialogHeader,
 	DialogTrigger,
-	DialogTitle,
+	DialogFooter,
 } from "../ui/dialog";
-import { useAscii } from "@/contexts/AsciiArtContext";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { useState } from "react";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { AsciiItem } from "@/contexts/AsciiArtContext";
+import "./AsciiArtCard.css";
 
 export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
-	const { deleteAscii, fetchAsciis } = useAscii();
+	const { deleteAscii, updateAscii, fetchAsciis } = useAscii();
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const [updatedTitle, setUpdatedTitle] = useState(ascii.title);
 
-	const handleEdit = () => {
-		console.log("edit");
+	const handleUpdateTitle = async () => {
+		try {
+			const result = await updateAscii(ascii._id, { title: updatedTitle });
+
+			if (typeof result === "boolean") {
+				if (result) {
+					setIsDialogOpen(false);
+				} else {
+					toast.error("Failed to update ASCII item");
+				}
+			} else {
+				const { success, message } = result;
+				if (success) {
+					setIsDialogOpen(false);
+					await fetchAsciis(); // Re-fetch to update the list
+				} else {
+					toast.error(message || "Failed to update ASCII item");
+				}
+			}
+		} catch (error) {
+			console.error("Error updating ASCII:", error);
+			toast.error("An unexpected error occurred");
+		}
 	};
-	const handleDelete = () => {
-		deleteAscii(ascii._id);
-		fetchAsciis();
-		console.log("delete");
+
+	const handleDeleteAscii = async () => {
+		try {
+			const result = await deleteAscii(ascii._id);
+
+			if (typeof result === "boolean") {
+				if (result) {
+					await fetchAsciis();
+				} else {
+					toast.error("Failed to delete ASCII item");
+				}
+			} else {
+				const { success, message } = result;
+				if (success) {
+					toast.success(message || "ASCII item deleted successfully");
+				} else {
+					toast.error(message || "Failed to delete ASCII item");
+				}
+			}
+		} catch (error) {
+			console.error("Error deleting ASCII:", error);
+			toast.error("An unexpected error occurred");
+		}
 	};
 
 	return (
 		<Card>
 			<CardHeader>
 				<CardTitle>{ascii.title}</CardTitle>
-				<CardDescription>ID: {ascii._id}</CardDescription>
+				<CardDescription>
+					{/* ID:{ascii._id} <br /> */}
+					Created at: {ascii.createdAt}
+					<br />
+					Updated Date:{ascii.updatedAt}
+				</CardDescription>
 			</CardHeader>
 			<CardContent className="flex flex-col items-center overflow-hidden max-w-100">
-				{" "}
-				{/* Initially hide overflow */}
-				<div className=" ascii-art text-yellow-500 text-[0.5rem]">
+				<div className=" ascii-art text-yellow-500 text-[0.2rem]">
 					{ascii.content}
 				</div>
+				<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+					<DialogTrigger asChild>
+						<Button variant={"outline"}>Edit</Button>
+					</DialogTrigger>
+					<DialogContent>
+						<DialogHeader>
+							<DialogTitle>Edit ASCII Title</DialogTitle>
+							<DialogDescription>
+								Change the title of your ASCII art here. Click save when you're
+								done.
+							</DialogDescription>
+						</DialogHeader>
+						<div className="grid gap-4 py-4">
+							<div className="grid grid-cols-4 items-center gap-4">
+								<Label htmlFor="title" className="text-right">
+									Title
+								</Label>
+								<Input
+									id="title"
+									value={updatedTitle}
+									className="col-span-"
+									onChange={(e) => setUpdatedTitle(e.target.value)}
+								/>
+							</div>
+						</div>
+						<DialogFooter>
+							<Button type="button" onClick={handleUpdateTitle}>
+								Save changes
+							</Button>
+						</DialogFooter>
+					</DialogContent>
+				</Dialog>
 				<Dialog>
 					<DialogTrigger asChild>
 						<Button variant="outline">View Full</Button>
 					</DialogTrigger>
-					<DialogContent className="max-w-screen-md max-h-screen-md overflow-auto">
+					<DialogContent className="overflow-auto max-h-[80dvh] min-w-[90dvw]">
 						<DialogHeader>
-							<DialogTitle>{ascii.title} - Full View</DialogTitle>
+							<DialogTitle>{ascii.title}</DialogTitle>
 						</DialogHeader>
-						<DialogDescription>
-							<pre className="ascii-art">{ascii.content}</pre>
-						</DialogDescription>
+						<DialogDescription>Full view</DialogDescription>
+						<span className="ascii-art text-[0.5rem] text-center">
+							{ascii.content}
+						</span>
 					</DialogContent>
 				</Dialog>
 			</CardContent>
-			<CardFooter className="items-center flex justify-center gap-2">
-				<Button variant="outline" onClick={handleEdit}>
-					Edit
-				</Button>
-				<Button variant="destructive" onClick={handleDelete}>
+			<CardFooter className="items-center flex justify-center gap-1">
+				<Button type="button" variant="destructive" onClick={handleDeleteAscii}>
 					Delete
 				</Button>
 			</CardFooter>
