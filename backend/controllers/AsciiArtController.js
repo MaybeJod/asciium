@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import Ascii from "../models/AsciiArtModel.js";
-import { title } from "process";
 
 export const getAscii = async (req, res) => {
 	try {
