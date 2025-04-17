@@ -30,9 +30,12 @@ export default function Navbar() {
 							</Link>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
-							<Link to="/github" className={navigationMenuTriggerStyle()}>
+							<a
+								href="https://github.com/MaybeJod/asciium"
+								className={navigationMenuTriggerStyle()}
+								target="_blank">
 								Github
-							</Link>
+							</a>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
 							<ModeToggle />
