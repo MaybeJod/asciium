@@ -21,20 +21,18 @@ import { toast } from "sonner";
 
 // --- Constants ---
 const ASCII_CHARS = " .,:;i1tfLCG08@";
-// const ASCII_CHARS = " .,:;i1tfLCG08@";
 // const ASCII_CHARS = "#@80GCLft1i;:,. ";
 // const ASCII_CHARS = "o O v V T L 7 U c C x X";
 // const ASCII_CHARS = "        .:░▒▓█";
 // const ASCII_CHARS = "█▓▒░:.    ";
 // const ASCII_CHARS = "_______.:!/r(l1Z4H9W8$@";
-// const ASCII_CHARS = " .,:;i1tfLCG08@";
 // const ASCII_CHARS = " .:-=+*#%@";
 // const ASCII_CHARS = "@%#*+=-:. ";
 // const ASCII_CHARS = "Ñ@#W$9876543210?!abc;:+=-,._          ";
 // const ASCII_CHARS = ` ~ ! ^ ( ) - _ + = ; : ' " , . \ / | < > [ ] { }`;
 
 const DEFAULT_FRAMERATE = 15;
-const DEFAULT_DETAIL_LEVEL = 10;
+const DEFAULT_DETAIL_LEVEL = 4;
 const CANVAS_WIDTH = 1000; // Fixed internal canvas resolution
 const CANVAS_HEIGHT = 1000;
 const FIXED_BOX_HEIGHT_PX = 500; // Fixed height of the display box in pixels
@@ -611,7 +609,7 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 							id="detailSlider"
 							value={[detailLevel]}
 							min={1}
-							max={15} // Keep max reasonable to avoid performance issues
+							max={20} // Keep max reasonable to avoid performance issues
 							step={1}
 							onValueChange={(vals) => setDetailLevel(vals[0])}
 							// disabled={!!photoTakenAscii || isCapturing} // Disable if photo taken or actively capturing (changing detail requires restart)
