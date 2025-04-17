@@ -12,9 +12,9 @@ function App() {
 	return (
 		<>
 			<Toaster richColors />
-			<header>
-				<Navbar />
-			</header>
+
+			<Navbar />
+
 			<main>
 				<Routes>
 					<Route path="/" element={<HomePage />} />
