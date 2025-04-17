@@ -138,8 +138,8 @@ This project uses **Google Analytics** via `gtag` to understand overall traffic 
 
 ## GDPR
 
-[!NOTE]
-By using ASCIIUM, users **agree** that their generated ASCII **art** with a **creation** and an **updated** date will be stored in the application's database. This storage is necessary to provide the core functionality of saving and displaying user creations.
+> [!NOTE]
+> By using ASCIIUM, users **agree** that their generated ASCII **art** with a **creation** and an **updated** date will be stored in the application's database. This storage is necessary to provide the core functionality of saving and displaying user creations.
 
 ## Security
 
@@ -194,15 +194,15 @@ npm install
 
 ### 3. Start Asciium
 
-[!NOTE]
-If you ran `npm run build` from the root directory then use the following command to start both the backend and frontend simultaneously:
+> [!NOTE]
+> If you ran `npm run build` from the root directory then use the following command to start both the backend and frontend simultaneously:
 
 ```bash
 npm run start
 ```
 
-[!NOTE]
-If **I** have **succeeded** to deploy this webapp then this works. **If not** the server will not work and you have to start the dev servers individually.
+> [!NOTE]
+> If **I** have **succeeded** to deploy this webapp then this works. **If not** the server will not work and you have to start the dev servers individually.
 
 This will:
 
