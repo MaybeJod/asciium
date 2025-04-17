@@ -26,7 +26,7 @@ import "./AsciiArtCard.css";
 
 export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
 	const { deleteAscii, updateAscii, fetchAsciis } = useAscii();
-	const [isDialogOpen, setIsDialogOpen] = useState(false);
+
 	const [updatedTitle, setUpdatedTitle] = useState(ascii.title);
 
 	const handleUpdateTitle = async () => {
@@ -35,14 +35,12 @@ export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
 
 			if (typeof result === "boolean") {
 				if (result) {
-					setIsDialogOpen(false);
 				} else {
 					toast.error("Failed to update ASCII item");
 				}
 			} else {
 				const { success, message } = result;
 				if (success) {
-					setIsDialogOpen(false);
 					await fetchAsciis(); // Re-fetch to update the list
 				} else {
 					toast.error(message || "Failed to update ASCII item");
@@ -89,14 +87,15 @@ export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
 					Updated Date:{ascii.updatedAt}
 				</CardDescription>
 			</CardHeader>
-			<CardContent className="flex flex-col items-center overflow-hidden max-w-100">
-				<div className=" ascii-art text-yellow-500 text-[0.2rem]">
+			<CardContent className="flex flex-col items-center">
+				<figure className="ascii-art max-h-100 overflow-hidden mb-2 text-[0.16rem]">
 					{ascii.content}
-				</div>
-				<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+				</figure>
+				<Dialog>
 					<DialogTrigger asChild>
 						<Button variant={"outline"}>Edit</Button>
 					</DialogTrigger>
+					{/* edit */}
 					<DialogContent>
 						<DialogHeader>
 							<DialogTitle>Edit ASCII Title</DialogTitle>
@@ -113,7 +112,7 @@ export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
 								<Input
 									id="title"
 									value={updatedTitle}
-									className="col-span-"
+									className="col-span-full"
 									onChange={(e) => setUpdatedTitle(e.target.value)}
 								/>
 							</div>
@@ -125,6 +124,7 @@ export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
 						</DialogFooter>
 					</DialogContent>
 				</Dialog>
+				{/* view full */}
 				<Dialog>
 					<DialogTrigger asChild>
 						<Button variant="outline">View Full</Button>
@@ -140,7 +140,7 @@ export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
 					</DialogContent>
 				</Dialog>
 			</CardContent>
-			<CardFooter className="items-center flex justify-center gap-1">
+			<CardFooter className="flex justify-center ">
 				<Button type="button" variant="destructive" onClick={handleDeleteAscii}>
 					Delete
 				</Button>
