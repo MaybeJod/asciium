@@ -18,18 +18,30 @@ import {
 } from "lucide-react";
 import { useAscii } from "@/contexts/AsciiArtContext";
 import { toast } from "sonner";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from "../ui/select";
+import { Label } from "../ui/label";
 
 // --- Constants ---
-const ASCII_CHARS = " .,:;i1tfLCG08@";
-// const ASCII_CHARS = "#@80GCLft1i;:,. ";
-// const ASCII_CHARS = "o O v V T L 7 U c C x X";
-// const ASCII_CHARS = "        .:░▒▓█";
-// const ASCII_CHARS = "█▓▒░:.    ";
-// const ASCII_CHARS = "_______.:!/r(l1Z4H9W8$@";
-// const ASCII_CHARS = " .:-=+*#%@";
-// const ASCII_CHARS = "@%#*+=-:. ";
-// const ASCII_CHARS = "Ñ@#W$9876543210?!abc;:+=-,._          ";
-// const ASCII_CHARS = ` ~ ! ^ ( ) - _ + = ; : ' " , . \ / | < > [ ] { }`;
+const ASCII_CHARS = {
+	default: " .,:;i1tfLCG08@",
+	shades_light: "        .:░▒▓█",
+	shades_dark: "█▓▒░:.    ",
+	symbols1: "#@80GCLft1i;:,. ",
+	symbols2: "o O v V T L 7 U c C x X",
+	complex1: "_______.:!/r(l1Z4H9W8$@",
+	complex2: " .:-=+*#%@",
+	complex3: "@%#*+=-:. ",
+	extended: "Ñ@#W$9876543210?!abc;:+=-,._          ",
+	minimal: ` ~ ! ^ ( ) - _ + = ; : ' " , . \\ / | < > [ ] { }`,
+};
 
 const DEFAULT_FRAMERATE = 15;
 const DEFAULT_DETAIL_LEVEL = 4;
@@ -69,6 +81,13 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 	const [detailLevel, setDetailLevel] = useState<number>(DEFAULT_DETAIL_LEVEL);
 	const [errorMessage, setErrorMessage] = useState<string>("");
 
+	const [selectedAsciiStyle, setSelectedAsciiStyle] = useState<string>(
+		ASCII_CHARS.default
+	); // Default style
+	const [backgroundColor, setBackgroundColor] = useState<"black" | "white">(
+		"black"
+	); // Default background
+
 	// --- Context ---
 	const { saveAsciiToServer } = useAscii();
 
@@ -102,36 +121,28 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 			const { data, width, height } = imageData;
 			let ascii = "";
 
-			// Calculate the step size to sample pixels across the image for the desired grid size
+			const currentAsciiChars = selectedAsciiStyle; // Use the state
+
 			const pixelSampleStepX = width / asciiGridWidth;
 			const pixelSampleStepY = height / asciiGridHeight;
 
 			for (let y = 0; y < asciiGridHeight; y++) {
 				for (let x = 0; x < asciiGridWidth; x++) {
-					// Determine the source pixel coordinates to sample
 					const sampleX = Math.floor(x * pixelSampleStepX);
 					const sampleY = Math.floor(y * pixelSampleStepY);
-
-					// Calculate the index of the pixel in the imageData array (RGBA format)
 					const idx = (sampleY * width + sampleX) * 4;
-
-					const r = data[idx];
-					const g = data[idx + 1];
-					const b = data[idx + 2];
-					// Alpha (data[idx + 3]) is ignored here
-
-					// Convert RGB to grayscale using the luminosity method
-					const gray = 0.299 * r + 0.587 * g + 0.114 * b;
-
-					// Map the grayscale value (0-255) to an index in the ASCII_CHARS string
-					const charIndex = Math.floor((gray * (ASCII_CHARS.length - 1)) / 255);
-					ascii += ASCII_CHARS[charIndex];
+					const gray =
+						0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
+					const charIndex = Math.floor(
+						(gray * (currentAsciiChars.length - 1)) / 255
+					);
+					ascii += currentAsciiChars[charIndex];
 				}
-				ascii += "\n"; // Newline after each row
+				ascii += "\n";
 			}
 			return ascii;
 		},
-		[asciiGridWidth, asciiGridHeight] // Recreate if grid size changes
+		[asciiGridWidth, asciiGridHeight, selectedAsciiStyle] // Add selectedAsciiStyle as a dependency
 	);
 
 	const captureFrame = useCallback(
@@ -518,7 +529,7 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 	return (
 		<Card className="w-full max-w-4xl mx-auto">
 			<CardHeader>
-				<CardTitle className="text-2xl">Webcam ASCII Photo Booth</CardTitle>
+				<CardTitle className="text-2xl">ASCII Photo Booth</CardTitle>
 				<CardDescription>
 					Capture your live camera feed as ASCII art.
 				</CardDescription>
@@ -532,28 +543,31 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 			)}
 
 			<CardContent className="space-y-6">
-				{/* Title Input - Only enable if a photo is taken or camera is running? Or always? Let's allow always for now. */}
+				{/* Title Input */}
 				<div className="space-y-2">
-					<label htmlFor="title" className="text-sm font-medium">
+					<Label htmlFor="title" className="text-sm font-medium">
 						Title (required to save):
-					</label>
-					<Input
-						type="text"
-						id="title"
-						placeholder="Enter title for your art"
-						value={title}
-						onChange={(e) => setTitle(e.target.value)}
-						maxLength={100} // Add max length
-					/>
+						<Input
+							type="text"
+							id="title"
+							placeholder="Enter title for your art"
+							value={title}
+							onChange={(e) => setTitle(e.target.value)}
+							maxLength={100} // Add max length
+							disabled={isCapturing ? false : true}
+						/>
+					</Label>
 				</div>
 
 				{/* ASCII Display Area */}
 				<div
-					className="relative rounded-md border border-input bg-black flex items-center justify-center overflow-hidden" // Use theme color
+					className={`relative  flex items-center justify-center overflow-hidden rounded-md border border-input ${
+						backgroundColor === "white" ? "bg-white" : "bg-black"
+					}`}
 					style={{
 						height: `${FIXED_BOX_HEIGHT_PX}px`,
-						width: `${fixedBoxWidth}px`, // Set width for aspect ratio
-						margin: "0 auto", // Center the box
+						width: `${fixedBoxWidth}px`,
+						margin: "0 auto",
 					}}>
 					{/* Flash Effect */}
 					{isFlashing && (
@@ -567,10 +581,11 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 					{/* ASCII Content */}
 					{showAscii && (
 						<pre
-							className="text-green-400 leading-none font-mono p-1 whitespace-pre" // Use leading-none, whitespace-pre, minimal padding
+							className={`leading-none font-mono p-1 whitespace-pre ${
+								backgroundColor === "white" ? "text-black" : "text-white"
+							}`}
 							style={{
 								fontSize: `${fontSizeRem}rem`,
-								// Ensure text doesn't wrap unexpectedly (shouldn't with whitespace-pre)
 								overflow: "hidden",
 								maxWidth: "100%",
 								maxHeight: "100%",
@@ -588,7 +603,7 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 
 					{/* Inactive Camera Placeholder */}
 					{!isCapturing && !photoTakenAscii && countdown === null && (
-						<div className="flex flex-col items-center justify-center h-full text-gray-500">
+						<div className="flex flex-col items-center justify-center h-full text-white">
 							<CameraIcon className="h-16 w-16 mb-4" />
 							<p>Camera Inactive</p>
 						</div>
@@ -597,10 +612,70 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 
 				{/* Controls Area */}
 				<div className="space-y-4 pt-4">
+					{/* ASCII Style Selector */}
+					<div className="space-y-2">
+						<Label htmlFor="asciiStyle">Select Ascii style</Label>
+						<Select
+							value={selectedAsciiStyle}
+							onValueChange={setSelectedAsciiStyle}>
+							<SelectTrigger id="asciiStyle">
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									<SelectLabel>Styles</SelectLabel>
+									<SelectItem value={ASCII_CHARS.default}>Default</SelectItem>
+									<SelectItem value={ASCII_CHARS.shades_light}>
+										Shades light
+									</SelectItem>
+									<SelectItem value={ASCII_CHARS.shades_dark}>
+										Shades dark
+									</SelectItem>
+									<SelectItem value={ASCII_CHARS.symbols1}>
+										Symbols 1
+									</SelectItem>
+									<SelectItem value={ASCII_CHARS.symbols2}>
+										Symbols 2
+									</SelectItem>
+									<SelectItem value={ASCII_CHARS.complex1}>
+										Complex 1
+									</SelectItem>
+									<SelectItem value={ASCII_CHARS.complex2}>
+										Complex 2
+									</SelectItem>
+									<SelectItem value={ASCII_CHARS.complex3}>
+										Complex 3
+									</SelectItem>
+									<SelectItem value={ASCII_CHARS.extended}>Extended</SelectItem>
+									<SelectItem value={ASCII_CHARS.minimal}>Minimal</SelectItem>
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+					</div>
+
+					{/* Background Color Toggler */}
+					<div className="space-y-2">
+						<Label className="text-sm font-medium">Background Color:</Label>
+						<div className="flex gap-2">
+							<Button
+								variant={backgroundColor === "black" ? "default" : "outline"}
+								onClick={() => setBackgroundColor("black")}>
+								Black
+							</Button>
+							<Button
+								variant={backgroundColor === "white" ? "default" : "outline"}
+								onClick={() => setBackgroundColor("white")}>
+								White
+							</Button>
+						</div>
+					</div>
+
 					{/* Detail Slider */}
 					<div className="space-y-2">
 						<div className="flex justify-between text-sm font-medium">
-							<label htmlFor="detailSlider">Detail Level:</label>
+							<Label htmlFor="detailSlider" id="detailSlider">
+								Detail Level:
+							</Label>
 							<span>
 								({asciiGridWidth}x{asciiGridHeight})
 							</span>
@@ -612,21 +687,23 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 							max={20} // Keep max reasonable to avoid performance issues
 							step={1}
 							onValueChange={(vals) => setDetailLevel(vals[0])}
-							// disabled={!!photoTakenAscii || isCapturing} // Disable if photo taken or actively capturing (changing detail requires restart)
 							aria-label="Detail Level"
+							aria-labelledby="detailSlider"
 						/>
 					</div>
 
 					{/* Frame Rate Slider */}
 					<div className="space-y-2">
-						<label
+						<Label
 							htmlFor="frameRateSlider"
+							id="frameRateSlider"
 							className="text-sm font-medium flex justify-between">
 							<span>Frame Rate:</span>
 							<span>{frameRate} fps</span>
-						</label>
+						</Label>
 						<Slider
 							id="frameRateSlider"
+							aria-labelledby="frameRateSlider"
 							value={[frameRate]}
 							min={1}
 							max={30}
