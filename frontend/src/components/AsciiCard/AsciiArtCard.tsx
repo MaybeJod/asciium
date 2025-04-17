@@ -88,7 +88,7 @@ export default function AsciiCard({ ascii }: { ascii: AsciiItem }) {
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="flex flex-col items-center overflow-hidden">
-				<figure className="ascii-art max-h-100 overflow-hidden mb-2 text-[0.16rem]">
+				<figure className="ascii-art h-100 overflow-hidden mb-2 text-[0.16rem]">
 					{ascii.content}
 				</figure>
 				<Dialog>
