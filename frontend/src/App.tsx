@@ -5,6 +5,7 @@ import CreatePage from "./pages/CreatePage";
 import Navbar from "./components/Navbar/Navbar";
 import { Toaster } from "sonner";
 import { usePageFocusTrap } from "./hooks/usePageFocusTrap";
+import Footer from "./components/Footer/Footer";
 
 function App() {
 	usePageFocusTrap();
@@ -20,7 +21,7 @@ function App() {
 					<Route path="/create" element={<CreatePage />} />
 				</Routes>
 			</main>
-			<footer></footer>
+			<Footer />
 		</>
 	);
 }
