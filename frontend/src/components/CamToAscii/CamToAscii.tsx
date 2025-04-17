@@ -21,6 +21,18 @@ import { toast } from "sonner";
 
 // --- Constants ---
 const ASCII_CHARS = " .,:;i1tfLCG08@";
+// const ASCII_CHARS = " .,:;i1tfLCG08@";
+// const ASCII_CHARS = "#@80GCLft1i;:,. ";
+// const ASCII_CHARS = "o O v V T L 7 U c C x X";
+// const ASCII_CHARS = "        .:░▒▓█";
+// const ASCII_CHARS = "█▓▒░:.    ";
+// const ASCII_CHARS = "_______.:!/r(l1Z4H9W8$@";
+// const ASCII_CHARS = " .,:;i1tfLCG08@";
+// const ASCII_CHARS = " .:-=+*#%@";
+// const ASCII_CHARS = "@%#*+=-:. ";
+// const ASCII_CHARS = "Ñ@#W$9876543210?!abc;:+=-,._          ";
+// const ASCII_CHARS = ` ~ ! ^ ( ) - _ + = ; : ' " , . \ / | < > [ ] { }`;
+
 const DEFAULT_FRAMERATE = 15;
 const DEFAULT_DETAIL_LEVEL = 10;
 const CANVAS_WIDTH = 1000; // Fixed internal canvas resolution
@@ -411,7 +423,6 @@ const CamToAscii: React.FC<WebcamToAsciiProps> = ({
 			});
 
 			if (success) {
-				toast.success("ASCII art saved successfully!");
 				// Reset state after successful save
 				retakePhoto(); // Go back to live view implicitly clears photo
 				setTitle(""); // Clear the title
