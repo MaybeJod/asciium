@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { Toaster } from "sonner";
 import { usePageFocusTrap } from "./hooks/usePageFocusTrap";
 import Footer from "./components/Footer/Footer";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
 	usePageFocusTrap();
@@ -15,10 +16,11 @@ function App() {
 
 			<Navbar />
 
-			<main>
+			<main className="container mx-auto my-20">
 				<Routes>
 					<Route path="/" element={<HomePage />} />
 					<Route path="/create" element={<CreatePage />} />
+					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 			</main>
 			<Footer />
