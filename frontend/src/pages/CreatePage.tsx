@@ -3,8 +3,7 @@ import CamToAscii from "@/components/CamToAscii/CamToAscii";
 export default function CreatePage() {
 	return (
 		<>
-			<div className="container mx-auto">
-				<h1 className="text-3xl font-bold">CamToAscii</h1>
+			<div className="container mx-auto my-20">
 				<CamToAscii />
 			</div>
 		</>
