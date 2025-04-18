@@ -18,7 +18,10 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(
 	cors({
-		origin: "*",
+		origin:
+			process.env.NODE_ENV === "production"
+				? "https://asciium.vercel.app/api"
+				: "http://localhost:3000",
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
