@@ -13,6 +13,7 @@ const AsciiArtSchema = new mongoose.Schema(
 			type: String,
 			require: true,
 			maxLength: [100, "Title cannot exceed 100 characters"],
+			match: [/^[a-zA-Z0-9 .,!?()-]+$/, "Title contains invalid characters"],
 		},
 	},
 	{
