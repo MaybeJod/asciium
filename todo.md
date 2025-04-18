@@ -1,7 +1,7 @@
 # TODO
 
 - [ ] DEPLOY ;(((((
-- [ ] feat: add alert/popup of that says tracking is on and gdpr
+- [x] feat: add alert/popup of that says tracking is on and gdpr
 - [ ] feat: add a landing page?
 - [ ] fix: tab ring color is to weak
 - [ ] fix: ascii canvas is not mobile responsive

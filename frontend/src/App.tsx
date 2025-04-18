@@ -7,11 +7,14 @@ import { Toaster } from "sonner";
 import { usePageFocusTrap } from "./hooks/usePageFocusTrap";
 import Footer from "./components/Footer/Footer";
 import NotFoundPage from "./pages/NotFoundPage";
+import ConsentBanner from "./components/ConsentBanner/ConsentBanner";
 
 function App() {
 	usePageFocusTrap();
+
 	return (
 		<>
+			<ConsentBanner />
 			<Toaster richColors />
 
 			<Navbar />
