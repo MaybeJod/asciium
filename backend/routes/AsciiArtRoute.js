@@ -5,16 +5,23 @@ import {
 	deleteAscii,
 	getAscii,
 	updateAscii,
+	validateAsciiCreate,
+	validateAsciiUpdate,
+	validateAsciiDelete,
 } from "../controllers/AsciiArtController.js";
 
 const router = express.Router();
 
+//get all ascii arts
 router.get("/", getAscii);
 
-router.post("/", createAscii);
+//create new ascii art with validation
+router.post("/", validateAsciiCreate, createAscii);
 
-router.put("/:id", updateAscii);
+//update ascii art title with validation
+router.put("/:id", validateAsciiUpdate, updateAscii);
 
-router.delete("/:id", deleteAscii);
+//delete ascii art with validation
+router.delete("/:id", validateAsciiDelete, deleteAscii);
 
 export default router;
