@@ -1,0 +1,12 @@
+# Last updated: April 18, 2025
+
+# Allow all web crawlers to access all content
+User-agent: *
+Allow: /
+
+
+# Optional: Crawl-delay directive
+# Crawl-delay: 10
+
+# Point to your sitemap
+Sitemap: https://asciium.vercel.app/sitemap.xml
