@@ -30,7 +30,7 @@ app.use(
 		origin:
 			process.env.NODE_ENV === "production"
 				? "https://asciium.vercel.app/api"
-				: "http://localhost:3000",
+				: "http://localhost:5173",
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
