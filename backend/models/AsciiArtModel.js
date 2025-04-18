@@ -6,7 +6,6 @@ const AsciiArtSchema = new mongoose.Schema(
 		content: {
 			type: String,
 			required: true,
-			maxLength: [50000, "Content cannot exceed 50000 characters"],
 		},
 		//title
 		title: {
