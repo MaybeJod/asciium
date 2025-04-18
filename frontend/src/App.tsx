@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import HomePage from "./pages/HomePage";
+import LandingPage from "./pages/LandingPage";
+import GalleryPage from "./pages/GalleryPage";
 import CreatePage from "./pages/CreatePage";
 import Navbar from "./components/Navbar/Navbar";
 import { Toaster } from "sonner";
@@ -21,7 +22,8 @@ function App() {
 
 			<main className="container mx-auto my-20">
 				<Routes>
-					<Route path="/" element={<HomePage />} />
+					<Route path="/" element={<LandingPage />} />
+					<Route path="/gallery" element={<GalleryPage />} />
 					<Route path="/create" element={<CreatePage />} />
 					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
