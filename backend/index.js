@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 
 import rateLimit from "express-rate-limit";
+import ExpressMongoSanitize from "express-mongo-sanitize";
 
 import { connectDB } from "./config/db.js";
 // import asciiRoutes from "./routes/asciiRoute.js";
@@ -18,6 +19,10 @@ const __dirname = path.resolve();
 //middleware
 //allows us to accept json data in the req.body
 app.use(express.json());
+
+//prevent NoSQL injection,
+//remove any keys containing prohibited characters like $ or . from the request body, params, and query, which prevents MongoDB operator injection.
+app.use(ExpressMongoSanitize());
 
 //cors config
 app.use(
