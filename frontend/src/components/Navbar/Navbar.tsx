@@ -25,6 +25,11 @@ export default function Navbar() {
 							</Link>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
+							<Link to="/gallery" className={navigationMenuTriggerStyle()}>
+								Gallery
+							</Link>
+						</NavigationMenuItem>
+						<NavigationMenuItem>
 							<Link to="/Create" className={navigationMenuTriggerStyle()}>
 								Create Ascii
 							</Link>
