@@ -204,7 +204,6 @@ export const AsciiProvider: React.FC<{ children: ReactNode }> = ({
 
 	useEffect(() => {
 		fetchAsciis();
-		console.log("AsciiProvider - Initial fetch"); // ADD THIS LOG
 	}, []);
 
 	return (
