@@ -65,7 +65,7 @@ const ConsentBanner = () => {
 						</Button>
 						<Button
 							onClick={handleAccept}
-							tabIndex={1}
+							tabIndex={0}
 							className="cursor-pointer">
 							Accept
 						</Button>
