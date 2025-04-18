@@ -7,7 +7,6 @@ import rateLimit from "express-rate-limit";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 
 import { connectDB } from "./config/db.js";
-// import asciiRoutes from "./routes/asciiRoute.js";
 import asciiArtRoutes from "./routes/AsciiArtRoute.js";
 
 dotenv.config();
@@ -48,11 +47,9 @@ const apiLimiter = rateLimit({
 app.use("/api", apiLimiter);
 
 //routes
-// app.use("/api/ascii", asciiRoutes);
 app.use("/api/ascii", asciiArtRoutes);
 
 //serve static files
-// console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));
 	app.get("*", (req, res) => {
