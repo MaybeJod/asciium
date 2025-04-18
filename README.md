@@ -21,16 +21,22 @@ ASCIIUM lets you capture live webcam video and transform it into stylized ASCII 
     - [HTTP Codes](#http-codes)
   - [A11y and SEO](#a11y-and-seo)
   - [Tracking](#tracking)
-    - [The app is measuring:](#the-app-is-measuring)
+      - [The app is measuring:](#the-app-is-measuring)
   - [GDPR](#gdpr)
   - [Security](#security)
     - [Vulnerabilities Addressed](#vulnerabilities-addressed)
-      - [Mitigation](#mitigation)
+      - [1. A03:2021 – Injection](#1-a032021--injection)
+        - [1.1 Mitigation](#11-mitigation)
+          - [1.1.1 express-mongo-sanitize](#111-express-mongo-sanitize)
+          - [1.1.2 express-validator](#112-express-validator)
+      - [2. A07:2021 – Identification and Authentication Failures](#2-a072021--identification-and-authentication-failures)
+        - [2.1 Mitigation](#21-mitigation)
   - [How to Run](#how-to-run)
     - [1. Clone the repo](#1-clone-the-repo)
     - [2. Install Dependencies](#2-install-dependencies)
-    - [3. Start Asciium](#3-start-asciium)
-    - [4. Open in Browser](#4-open-in-browser)
+    - [3. Create a .env file](#3-create-a-env-file)
+    - [4. Start Asciium](#4-start-asciium)
+    - [5. Open in Browser](#5-open-in-browser)
   - [Requirements](#requirements)
 
 ## Tech Stack
@@ -139,23 +145,45 @@ This project uses **Google Analytics** via `gtag` to understand overall traffic 
 ## GDPR
 
 > [!NOTE]
-> By using ASCIIUM, users **agree** that their generated ASCII **art** with a **creation** and an **updated** date will be stored in the application's database. This storage is necessary to provide the core functionality of saving and displaying user creations.
+> By using ASCIIUM, users **agree** that their generated **ASCII** **art** with a **creation** and an **updated** date will be stored in the application's database. This storage is necessary to provide the core functionality of saving and displaying user creations. No personal information is saved, IF you do not take a identifiable ASCII selfie : )
 
 ## Security
 
+Checked OWASP top 10 list of web application security risks.
+
 ### Vulnerabilities Addressed
 
-1. Title
-   Text here
+#### 1. A03:2021 – Injection
 
-2. Title
-   Text here
+ASCIIUM was vulnerable to NoSQL injection, where malicious code could be injected into database queries through user-supplied input.
 
-#### Mitigation
+To mitigate this, two primary defenses have been implemented. First, the express-mongo-sanitize middleware is used to sanitize all user input, removing any potentially malicious operators before they reach the database. Second, the express-validator library is employed to validate and sanitize user input, ensuring that it conforms to the expected data type and format, and escaping potentially harmful characters. These measures significantly reduce the risk of successful NoSQL injection attacks.
 
-- Text here
-- text here
-- text here
+##### 1.1 Mitigation
+
+###### 1.1.1 express-mongo-sanitize
+
+Input sanitization, the middleware automatically sanitizes all user-supplied input (found in request bodies, query strings, and parameters) by removing or escaping any MongoDB operator symbols (e.g., $where, $gt, $lt) that could be used by an attacker to manipulate the intended database query. This effectively neutralizes any attempts to inject malicious code through these operators.
+
+###### 1.1.2 express-validator
+
+Input validation specifically within ascii controller logic (in the createAscii and updateAscii functions), we define validation rules for each input field (title and content). The rules ensure that the input conforms to the expected data type, format, and length. express-validator's escape() function is used to sanitize input by converting potentially harmful characters (e.g., <, >, &, ', ") into their HTML entity equivalents. This prevents these characters from being interpreted as code by the database or the application.
+
+#### 2. A07:2021 – Identification and Authentication Failures
+
+The lack of authentication means that the application essentially operates without any concept of user identity. There are no login mechanisms, no user accounts, and no verification processes in place. This is not ideal. And means any visitor, can perform all core data manipulation operations, such as:
+
+    - Create new ASCII art entries, potentially flooding the database with spam or inappropriate content.
+
+    - Read any existing ASCII art, including those created by other users.
+
+    - Update any ASCII art title, allowing alteration of other users' title creations.
+
+    - Delete any ASCII art entry, potentially leading to the loss of valuable user-generated content.
+
+##### 2.1 Mitigation
+
+A key mitigation is implementing auth. This would verify user identities, controlling access and actions based on roles.
 
 ## How to Run
 
@@ -192,7 +220,14 @@ cd ../frontend
 npm install
 ```
 
-### 3. Start Asciium
+### 3. Create a .env file
+
+You will need a .env file in the root directory with:
+
+- `MONGO_URI=yourmongouri`
+- `PORT=portnumber`
+
+### 4. Start Asciium
 
 > [!NOTE]
 > If you ran `npm run build` from the root directory then use the following command to start both the backend and frontend simultaneously:
@@ -220,7 +255,7 @@ cd ../frontend
 npm run dev
 ```
 
-### 4. Open in Browser
+### 5. Open in Browser
 
 Once both servers are running:
 
@@ -238,4 +273,4 @@ Once both servers are running:
 
 - [x] A file in the repository explains with at least 2 sentences, maximum 50, what type of tracking you have implemented, why, and how it takes into consideration your users privacy.
 
-- [ ] A file in the repository explains with at least 5 sentences, maximum 50, at least 2 common threats and vulnerabilities that your project might be vulnerable too. Going into detail over one of them, explaining how you have mitigated yourself against it.
+- [x] A file in the repository explains with at least 5 sentences, maximum 50, at least 2 common threats and vulnerabilities that your project might be vulnerable too. Going into detail over one of them, explaining how you have mitigated yourself against it.
