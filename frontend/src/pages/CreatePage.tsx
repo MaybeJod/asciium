@@ -1,14 +1,12 @@
-import AsciiForm from "@/components/AsciiForm/AsciiForm";
-import { AsciiProvider } from "@/contexts/AsciiContext";
+import CamToAscii from "@/components/CamToAscii/CamToAscii";
 
 export default function CreatePage() {
 	return (
 		<>
-			<AsciiProvider>
-				<section className="flex justify-center">
-					<AsciiForm />
-				</section>
-			</AsciiProvider>
+			<div className="container mx-auto my-20">
+				<h1 className="text-8xl mb-5">Creation in progress</h1>
+				<CamToAscii />
+			</div>
 		</>
 	);
 }

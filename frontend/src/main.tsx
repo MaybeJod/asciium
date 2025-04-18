@@ -4,16 +4,16 @@ import "./index.css";
 import App from "./App.tsx";
 import { ThemeProvider } from "./components/darkMode/theme-provider.tsx";
 import { BrowserRouter } from "react-router-dom";
-import { AsciiProvider } from "./contexts/AsciiContext.tsx";
+import { AsciiProvider } from "./contexts/AsciiArtContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<BrowserRouter>
-			<AsciiProvider>
-				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+				<AsciiProvider>
 					<App />
-				</ThemeProvider>
-			</AsciiProvider>
+				</AsciiProvider>
+			</ThemeProvider>
 		</BrowserRouter>
 	</StrictMode>
 );
