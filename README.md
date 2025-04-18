@@ -157,8 +157,6 @@ Checked OWASP top 10 list of web application security risks.
 
 ASCIIUM was vulnerable to NoSQL injection, where malicious code could be injected into database queries through user-supplied input.
 
-To mitigate this, two primary defenses have been implemented. First, the express-mongo-sanitize middleware is used to sanitize all user input, removing any potentially malicious operators before they reach the database. Second, the express-validator library is employed to validate and sanitize user input, ensuring that it conforms to the expected data type and format, and escaping potentially harmful characters. These measures significantly reduce the risk of successful NoSQL injection attacks.
-
 ##### 1.1 Mitigation
 
 ###### 1.1.1 express-mongo-sanitize
@@ -173,13 +171,13 @@ Input validation specifically within ascii controller logic (in the createAscii 
 
 The lack of authentication means that the application essentially operates without any concept of user identity. There are no login mechanisms, no user accounts, and no verification processes in place. This is not ideal. And means any visitor, can perform all core data manipulation operations, such as:
 
-    - Create new ASCII art entries, potentially flooding the database with spam or inappropriate content.
+- Create new ASCII art entries, potentially flooding the database with spam or inappropriate content.
 
-    - Read any existing ASCII art, including those created by other users.
+- Read any existing ASCII art, including those created by other users.
 
-    - Update any ASCII art title, allowing alteration of other users' title creations.
+- Update any ASCII art title, allowing alteration of other users' title creations.
 
-    - Delete any ASCII art entry, potentially leading to the loss of valuable user-generated content.
+- Delete any ASCII art entry, potentially leading to the loss of valuable user-generated content.
 
 ##### 2.1 Mitigation
 
