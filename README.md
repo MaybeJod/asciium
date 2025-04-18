@@ -37,7 +37,6 @@ ASCIIUM lets you capture live webcam video and transform it into stylized ASCII 
     - [3. Create a .env file](#3-create-a-env-file)
     - [4. Start Asciium](#4-start-asciium)
     - [5. Open in Browser](#5-open-in-browser)
-  - [Requirements](#requirements)
 
 ## Tech Stack
 
@@ -258,17 +257,3 @@ npm run dev
 Once both servers are running:
 
 - Open your browser and navigate to http://localhost:5173 to access the ASCIIUM.
-
-## Requirements
-
-- [x] The API provides endpoints with at least 3 different HTTP verbs. Those HTTP verbs are used correctly
-
-- [x] The API responds with at least 4 different HTTP status codes depending on the endpoint, input and response. The status codes are appropriate for the data being returned
-
-- [x] The API stores it's data in a database. Restarting the API has no effect on the API itself, making it stateless.
-
-- [x] A file in the repository explains with at least 4 sentences, maximum 50, how you ensured the application was accessible and SEO-friendly (with a focus on accessibility)
-
-- [x] A file in the repository explains with at least 2 sentences, maximum 50, what type of tracking you have implemented, why, and how it takes into consideration your users privacy.
-
-- [x] A file in the repository explains with at least 5 sentences, maximum 50, at least 2 common threats and vulnerabilities that your project might be vulnerable too. Going into detail over one of them, explaining how you have mitigated yourself against it.
