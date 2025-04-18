@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 
+import rateLimit from "express-rate-limit";
+
 import { connectDB } from "./config/db.js";
 // import asciiRoutes from "./routes/asciiRoute.js";
 import asciiArtRoutes from "./routes/AsciiArtRoute.js";
@@ -16,6 +18,8 @@ const __dirname = path.resolve();
 //middleware
 //allows us to accept json data in the req.body
 app.use(express.json());
+
+//cors config
 app.use(
 	cors({
 		origin:
@@ -26,6 +30,17 @@ app.use(
 		credentials: true,
 	})
 );
+
+//rate limiter
+const apiLimiter = rateLimit({
+	// 15 minutes
+	windowMs: 15 * 60 * 1000,
+	// limit each IP to 100 requests per windowMs
+	max: 100,
+	message: "Too many requests, please try again after 15 minutes",
+});
+
+app.use("/api", apiLimiter);
 
 //routes
 // app.use("/api/ascii", asciiRoutes);
