@@ -5,7 +5,7 @@
 - [x] feat: add a landing page?
 - [x] fix: tab ring color is to weak
 - [ ] fix: ascii canvas is not mobile responsive
-- [ ] fix: nav is not mobile responsive
+- [x] fix: nav is not mobile responsive
 - [ ] style: ascii card component
   - [ ] fix: createdAt string
   - [ ] fix: updatedAt string
