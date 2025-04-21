@@ -30,8 +30,10 @@ export default function LandingPage() {
 					ASCIIUM - Create lil happy ASCII accidents
 				</h2>
 
-				<Link to={"/create"}>
-					<Button> Start Creating</Button>
+				<Link
+					to={"/create"}
+					className="bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[10px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-9 px-4 py-2 has-[>svg]:px-3">
+					Start Creating
 				</Link>
 			</section>
 			{/* ascii art */}
@@ -265,8 +267,10 @@ export default function LandingPage() {
 						</CardContent>
 					</Card>
 				</div>
-				<Link to={"/create"}>
-					<Button> Start Now</Button>
+				<Link
+					to={"/create"}
+					className="bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[10px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-9 px-4 py-2 has-[>svg]:px-3">
+					Start Now
 				</Link>
 			</section>
 			{/* pricing */}
@@ -283,8 +287,10 @@ export default function LandingPage() {
 						</CardHeader>
 						<CardContent>
 							<p className="text-8xl font-bold mb-5">$1.00</p>
-							<Link to={"/create"}>
-								<Button>Start now</Button>
+							<Link
+								to={"/create"}
+								className="bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[10px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-9 px-4 py-2 has-[>svg]:px-3">
+								Start now
 							</Link>
 							<pre className="mt-5">
 								<hr />
@@ -301,7 +307,7 @@ export default function LandingPage() {
 
 					<Card>
 						<CardHeader>
-							<CardTitle>Guided walkthrough</CardTitle>
+							<CardTitle>Solo walkthrough</CardTitle>
 							<CardDescription>
 								A freemium subscription, no walkthrough with the creator. No
 								hidden fees tho.
@@ -309,8 +315,10 @@ export default function LandingPage() {
 						</CardHeader>
 						<CardContent>
 							<p className="text-8xl font-bold mb-5">$Free</p>
-							<Link to={"/create"}>
-								<Button variant={"outline"}>Start now</Button>
+							<Link
+								to={"/create"}
+								className="bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[10px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-9 px-4 py-2 has-[>svg]:px-3">
+								Start now
 							</Link>
 							<pre className="mt-5">
 								<hr />
