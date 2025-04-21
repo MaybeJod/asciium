@@ -118,3 +118,9 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+a:focus-visible {
+	box-shadow: 0 0 0 0px #fff,
+		0 0 0 calc(10px + 0px) oklch(86.08033511478187% 0.178 99.49695962824507),
+		0 0 #0000;
+}
