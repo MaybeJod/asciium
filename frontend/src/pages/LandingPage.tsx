@@ -307,7 +307,7 @@ export default function LandingPage() {
 
 					<Card>
 						<CardHeader>
-							<CardTitle>Guided walkthrough</CardTitle>
+							<CardTitle>Solo walkthrough</CardTitle>
 							<CardDescription>
 								A freemium subscription, no walkthrough with the creator. No
 								hidden fees tho.
