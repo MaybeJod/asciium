@@ -245,7 +245,8 @@ const CamToAscii: React.FC<CamToAsciiProps> = ({
 					}`}
 					style={{
 						height: `${FIXED_BOX_HEIGHT_PX}px`,
-						width: `${fixedBoxWidth}px`,
+						// width: `${fixedBoxWidth}px`,
+						width: `100%`,
 						margin: "0 auto", // Center the box
 					}}>
 					{/* Flash Effect Overlay */}
