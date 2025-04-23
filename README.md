@@ -21,7 +21,7 @@ ASCIIUM lets you capture live webcam video and transform it into stylized ASCII 
     - [HTTP Codes](#http-codes)
   - [A11y and SEO](#a11y-and-seo)
   - [Tracking](#tracking)
-      - [The app is measuring:](#the-app-is-measuring)
+    - [The app is measuring:](#the-app-is-measuring)
   - [GDPR](#gdpr)
   - [Security](#security)
     - [Vulnerabilities Addressed](#vulnerabilities-addressed)
@@ -82,7 +82,7 @@ Creates a new ASCII art entry.
 
 ### PUT `/api/ascii/:id`
 
-Updates an existing ASCII art entry by ID.
+Updates an existing ASCII art entry Title by ID.
 
 **Request Parameters**
 
