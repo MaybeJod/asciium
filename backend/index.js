@@ -24,16 +24,7 @@ app.use(express.json());
 app.use(ExpressMongoSanitize());
 
 //cors config
-app.use(
-	cors({
-		origin:
-			process.env.NODE_ENV === "production"
-				? "https://asciium.vercel.app/api"
-				: "http://localhost:5173",
-		methods: ["GET", "POST", "PUT", "DELETE"],
-		credentials: true,
-	})
-);
+app.use(cors());
 
 //rate limiter
 const apiLimiter = rateLimit({
