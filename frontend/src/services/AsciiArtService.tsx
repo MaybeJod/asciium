@@ -6,7 +6,7 @@ if (import.meta.env.MODE === "development") {
 	API_URL = "http://localhost:4000/api";
 	console.log("Using development API:", API_URL);
 } else {
-	API_URL = "http://localhost:4000/api";
+	API_URL = "https://asciium.onrender.com/api/";
 	console.log("Using production API:", API_URL);
 }
 
